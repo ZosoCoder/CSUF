@@ -62,7 +62,7 @@ public class QuickSort {
 		int s = generator.nextInt(r-l+1) + l;
 		swap(array,l,s);
 		int p = array[l];
-		int i = l;
+		int i = l-1;
 		int j = r+1;
 		do {
 			do {i++;} while (i<r && array[i] <= p);

@@ -1,4 +1,0 @@
-CSUF
-====
-
-Projects for school
