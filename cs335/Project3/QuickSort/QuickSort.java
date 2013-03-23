@@ -4,22 +4,16 @@ import java.io.*;
 
 public class QuickSort {
 	public static void main(String[] args) {
-		//Ask user for array size
-		/*
+	/* Create and sort a random array of size provided using Quicksort */
 		System.out.println("--Quick Sort--");
-		System.out.print("Size n of array (int): ");
-		Scanner input = new Scanner(System.in);
-		int size = input.nextInt();
-		*/
-
-		try {
-			PrintStream out = new PrintStream(new FileOutputStream("error.txt"));
-			System.setErr(out);	
-		} catch (FileNotFoundException e) {
-			System.out.println("Error: " + e);
-		}
+		int size = 1;
 		
-		int size = Integer.parseInt(args[0]);
+		try {
+			size = Integer.parseInt(args[0]);
+		} catch (NumberFormatException e) {
+			System.out.println("The first argument must be an integer.");
+			System.exit(1);
+		}
 
 		//Initialize array and random number generator
 		int[] array = new int[size];
@@ -29,21 +23,25 @@ public class QuickSort {
 		for (int i=0; i<size; i++)
 			array[i] = generator.nextInt(100);
 
+		/* PRINT RANDOM ARRAY FOR TESTING
 		System.out.print("\nUnsorted: ");
 		PrintArray(array);
+		*/
+
 		//Set start time
-		long start = System.currentTimeMillis();
+		long start = System.nanoTime();
 
 		//Sort array using quicksort
 		QuickSortA(array,0,size-1);
 
 		//Get elapsed time
-		long elapsed = System.currentTimeMillis() - start;
+		long elapsed = System.nanoTime() - start;
 
-		//Print information
+		/* PRINT ARRAY FOR TESTING
 		System.out.print("\nSorted: ");
 		PrintArray(array);
-		System.out.println("\nQuick Sort time: " + elapsed + " milliseconds.");
+		*/
+		System.out.format("\nQuicksort time %.2f milliseconds.\n",(elapsed/1000000.0));
 	}
 
 	public static void QuickSortA(int[] array, int l, int r) {
@@ -51,7 +49,7 @@ public class QuickSort {
 		if (l < r) {
 			int s = Partition(array,l,r);
 			QuickSortA(array,l,s-1);
-			QuickSortA(array,s,r);
+			QuickSortA(array,s+1,r);
 		}
 	}
 
