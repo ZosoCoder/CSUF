@@ -1,0 +1,154 @@
+.month {
+    width: 100%;
+}
+
+.month table, tr, td {
+    border: 1px solid #dddddd;
+}
+
+.month td {
+    height: 125px;
+    width: 14%;
+    vertical-align: top;
+}
+
+.month tr {
+    width: 14%;
+}
+
+.today {
+    background-color: #5E5E5E; 
+    color:white;   
+}
+.today A{
+	color:white;
+}
+
+.filled {
+    background-color: #ededed;  
+}
+
+.noday {
+    background-color: #D3D3D3;
+}
+
+/*-------------added styles----------------------------*/
+
+body{
+	background:url(../img/night.jpg);
+	}
+
+#item{
+	float:left;
+	display:block;
+	border: 1px solid #c0c0c0;
+	width:10%;
+	margin:10px;
+	padding:5px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	-moz-box-shadow: 0px 2px 2px #888;
+	-webkit-box-shadow: 0px 2px 2px #888;
+	box-shadow: 0px 2px 2px #888;
+	    background:white;
+    opacity:0.8;
+    filter:alpha(opacity=80);
+	
+}
+#item span{
+	display:block;
+}
+
+#item .date{
+	border-bottom:1px solid #c0c0c0;
+}
+/*---this was frustrating.....------*/
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+    background:white;
+    opacity:0.8;
+    filter:alpha(opacity=80);
+}
+
+.month {
+    border: solid #ccc 0px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.month tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.month td, .month th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;    
+}
+
+.month td
+{
+	text-align: left;
+}
+.month th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#EDEDED));
+    background-image: -webkit-linear-gradient(top, #fff, #EDEDED);
+    background-image:    -moz-linear-gradient(top, #fff, #EDEDED);
+    background-image:     -ms-linear-gradient(top, #fff, #EDEDED);
+    background-image:      -o-linear-gradient(top, #fff, #EDEDED);
+    background-image:         linear-gradient(top, #fff, #EDEDED);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+
+.month td:first-child, .month th:first-child {
+    border-left: none;
+   
+}
+
+.month th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+.month th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.month th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.month tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.month tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}

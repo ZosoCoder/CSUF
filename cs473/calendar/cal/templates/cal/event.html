@@ -1,0 +1,39 @@
+{% extends "cal/base.html" %}
+
+{% block Title %}{{ i.title}}{% endblock %}
+
+{% block Style %}
+    <style>
+        .month {
+            border: 1px solid black;
+            padding: 5px;
+            background: gray;
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;    
+            background:white;
+            opacity:0.8;
+            filter:alpha(opacity=80);
+        } 
+    </style>
+{% endblock %}
+
+{% block Navigation %}
+    <ul class="nav">
+        <li><a href="/{{ year }}">Year</a></li>
+        <li><a href="/{{ year }}/{{ month }}">Month</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}/week">Week</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}">Day</a></li>
+    </ul>
+{% endblock %}
+
+{% block Content %}
+<div class="month">
+    <h3>{{ monthString }} {{dayString}}, {{ year }}</h3>
+    {% for i in entries %}
+	<p><h3>{{i.title}}</h3></p>
+        <p><b>Description:</b> {{i.body}}</p><br>
+	<small>Event Created On: {{i.created}}<small>
+    {% endfor %}
+</div>     
+{% endblock %}

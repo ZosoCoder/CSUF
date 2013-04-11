@@ -1,0 +1,21 @@
+﻿{% extends "cal/base.html" %}
+
+{% block Title %}{{ monthstring }} {{ year }}{% endblock %}
+
+{% block Style %}
+    <style>
+    </style>
+{% endblock %}
+
+{% block Navigation %}
+    <ul class="nav">
+        <li><a href="/{{ year }}">Year</a></li>
+        <li class="active"><a href="/{{ year }}/{{ month }}">Month</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}/week">Week</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}">Day</a></li>
+    </ul>
+{% endblock %}
+
+{% block Content %}
+    {{ calendar }}
+{% endblock %}

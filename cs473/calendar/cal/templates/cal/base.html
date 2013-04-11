@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block Title %}{% endblock %}</title>
+
+    <!--CSS-->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}css/calender.css" rel="stylesheet" />
+    
+    {% block Style %}{% endblock %}
+
+</head>
+<body>
+    <div class="container">
+        <div class="masthead">
+            <div class="navbar" style="float: center;"> 
+                <div class="navbar-inner">
+                    <div class="container">
+                        {% block Navigation %}
+                        {% endblock %}      
+                        <div class="btn-group" data-toggle="buttons-radio" style="float: right;" >
+							<!--
+                            <a href="#" class="btn btn-large" data-toggle="button" class-toggle="btn-inverse"><i class="icon-calendar"></i></a>
+                            <a href="#" class="btn btn-large" data-toggle="button" class-toggle="btn-inverse"><i class="icon-list"></i></a>
+                       -->
+                        </div>
+                    </div><!-- /.container -->
+                </div><!-- /.navbar-inner -->
+            </div><!-- /.navbar -->
+        </div><!-- /.masthead -->
+        {% block Content %}
+        {% endblock %}
+    </div><!-- /.container -->
+
+    <!--Java Script-->
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-button.js"></script>
+</body>
+</html>

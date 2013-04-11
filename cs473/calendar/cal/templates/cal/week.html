@@ -1,0 +1,28 @@
+{% extends "cal/base.html" %}
+
+{% block Title %}Week View{% endblock %}
+
+{% block Style %}
+    <style>
+    </style>
+{% endblock %}
+
+{% block Navigation %}
+    <ul class="nav">
+        <li><a href="/{{ year }}">Year</a></li>
+        <li><a href="/{{ year }}/{{ month }}">Month</a></li>
+        <li class="active"><a href="/{{ year }}/{{ month }}/{{day}}/week">Week</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}">Day</a></li>
+    </ul>
+{% endblock %}
+
+{% block Content %}
+    <table border="0" cellpadding="0" cellspacing="0" class="month">
+        <tr>
+            <th colspan="1"><a href="{% url 'cal:week' prevyear prevmonth prevday %}">&lt;&lt; Prev</a></th>
+            <th colspan="5" class="month">{{ curr_week }}</th>
+            <th colspan="1"><a href="{% url 'cal:week' nextyear nextmonth nextday %}">Next &gt;&gt;</a></th>
+        </tr>
+        {{ calendar }}
+    </table>
+{% endblock %}

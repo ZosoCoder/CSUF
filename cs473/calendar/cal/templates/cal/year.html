@@ -1,0 +1,44 @@
+﻿{% extends "cal/base.html" %}
+
+{% block Title %}{{ year }}{% endblock %}
+
+{% block Style %}
+    <style>
+        .monthdiv {
+            border: 1px solid black;
+            padding: 5px;
+            background: gray;
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;    
+            background:white;
+            opacity:0.8;
+            filter:alpha(opacity=80);
+        }            
+        }
+        .monthlabel {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block Navigation %}
+    <ul class="nav">
+        <li class="active"><a href="/{{ year }}">Year</a></li>
+        <li><a href="/{{ year }}/{{ month }}">Month</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}/week">Week</a></li>
+        <li><a href="/{{ year }}/{{ month }}/{{day}}">Day</a></li>
+    </ul>
+{% endblock %}
+
+{% block Content %}
+    <table border="0" cellpadding="0" cellspacing="0" class="month">
+        <tr>
+            <th colspan="1"><a href="{% url 'cal:year' year|add:-1 %}">&lt;&lt; Prev</a></th>
+            <th colspan="5" class="monthlabel">{{ year }}</th>
+            <th colspan="1"><a href="{% url 'cal:year' year|add:1 %}">Next &gt;&gt;</a></th>
+        </tr>
+    </table>
+    {{ calendar }}
+{% endblock %}
