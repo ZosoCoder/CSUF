@@ -2,7 +2,7 @@ import sqlite3
 from bottle import route, run, debug, template, request, validate, static_file
 from bottle import error
 
-
+@route('/')
 @route('/todo')
 def todo_list():
 	conn = sqlite3.connect('todo.db')
@@ -16,16 +16,6 @@ def todo_list():
 	output = template('make_table', rows=result)
 	
 	return output
-'''
-
-@route('/todo')
-def todo_list():
-	conn = sqlite3.connect('todo.db')
-	c = conn.cursor()
-	c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
-	result = c.fetchall()
-	return str(result)
-'''
 
 @route('/new')
 def new():
