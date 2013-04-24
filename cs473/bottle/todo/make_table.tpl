@@ -1,5 +1,5 @@
 %#template to generate a HTML table from a list of tuples
-<p>The opten items are as follows:</p>
+<p>The {{status}} items are as follows:</p>
 <table border="1">
 	%for row in rows:
 		<tr>
