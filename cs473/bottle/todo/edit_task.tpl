@@ -4,7 +4,7 @@
 <form action="/edit/{{no}}" method="POST">
 	<input type="text" name="task" value="{{old}}" size="100" maxlength="100">
 	<select name="status">
-		%if open == 1:
+		%if open == 'open':
 			<option selected="selected">open</option>
 			<option>closed</option>
 		%else:

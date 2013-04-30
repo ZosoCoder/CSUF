@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+	<title>ToDo List Open Items</title>
+	<description>The open items in the ToDo List</description>
+
+	%for id,task in tasks.items():
+		<item>
+		<title>Task #{{ id }}</title>
+		<description>{{ task[0] }}</description>
+		</item>
+	%end
+</channel>
+
+</rss>

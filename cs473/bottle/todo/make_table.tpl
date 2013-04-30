@@ -1,11 +1,10 @@
 %#template to generate a HTML table from a list of tuples
 <p>The {{status}} items are as follows:</p>
 <table border="1">
-	%for row in rows:
+	%for id,task in tasks.items():
 		<tr>
-			%for col in row:
-				<td>{{col}}</td>
-			%end
+			<td>{{ id }}</td>
+			<td>{{ task[0] }}</td>
 		</tr>
 	%end
 </table>
