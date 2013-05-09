@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf=8">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Site</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <style type="text/css">
             label.valid {
-                width: 24px;
-                height: 24px;
-                background: url(img/Done.png) center center no-repeat;
                 display: inline-block;
-                text-indent: -9999px;
+                position: relative;
+            }
+            label.valid:before {
+                content: "\f00c";
+                font-family: 'FontAwesome';
+                font-style: normal;
+                text-decoration: inherit;
+                color: green;
+                font-size: 15px;
+                display: inline-block;
             }
             label.error {
                 font-weight: bold;
@@ -19,13 +26,21 @@
                 padding: 2px 8px;
                 margin-top: 2px;
             }
+            body { padding-top: 60px; }
+            @media (max-width: 979px) {
+                .navbar-fixed-top,
+                .navbar-fixed-bottom {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <header class="row">
                 <div class="span12">
-                    <nav class="navbar">
+                    <div class="navbar navbar-fixed-top navbar-inverse" style="position:fixed">
                         <div class="navbar-inner">
                             <a href="#nameTaken" data-toggle="modal" class="brand">PHP Forum</a>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -40,7 +55,7 @@
                                 </ul> <!-- End navigation links -->
                             </div> <!-- nav-collapse end -->
                         </div> <!-- End navbar-inner -->
-                    </nav> <!-- End navbar -->
+                    </div> <!-- End navbar -->
                 </div> <!-- End span12 -->
             </header> <!-- End of header -->
             <div class="row" id="main-content">
@@ -84,16 +99,16 @@
             <div class="modal-body">
                 <form id="contact-form" method="post" action="index.php">
                     <div class="control-group controls">
-                        <input type="text" class="span5" name="fullname" id="fullname" placeholder="Full Name">
+                        <input type="text" class="span4" name="fullname" id="fullname" placeholder="Full Name">
                     </div>
                     <div class="control-group controls">
-                        <input type="text" class="span5" name="username" id="username" placeholder="Username">
+                        <input type="text" class="span4" name="username" id="username" placeholder="Username">
                     </div>
                     <div class="control-group controls">
-                        <input type="password" class="span5" name="password" id="password" placeholder="Password">
+                        <input type="password" class="span4" name="password" id="password" placeholder="Password">
                     </div>
                     <div class="control-group controls">
-                        <input type="password" class="span5" name="confpass" id="confpass" placeholder="Confirm Password">
+                        <input type="password" class="span4" name="confpass" id="confpass" placeholder="Confirm Password">
                     </div>
             </div>
             <div class="modal-footer">

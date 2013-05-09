@@ -35,7 +35,7 @@ $(document).ready(function(){
 			},
 			success: function(element) {
 				element
-				.text('OK!').addClass('valid')
+				.addClass('valid')
 				.closest('.control-group').removeClass('error').addClass('success');
 			}
 	  });

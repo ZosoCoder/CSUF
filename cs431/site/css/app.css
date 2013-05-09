@@ -1,0 +1,272 @@
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+body { }
+
+
+
+/* =============================================================================
+   Header
+   ========================================================================== */
+
+#banner { }
+
+/* Fixed Topbar Navigation */
+body { padding-top: 60px; }
+body.admin-bar .navbar-fixed-top { top: 28px; }
+
+
+
+/* =============================================================================
+   Content
+   ========================================================================== */
+
+#content { }
+
+
+
+/* =============================================================================
+   Primary Content
+   ========================================================================== */
+
+#main { }
+
+
+
+/* =============================================================================
+   Sidebar
+   ========================================================================== */
+
+#sidebar { }
+
+
+
+/* =============================================================================
+   Posts
+   ========================================================================== */
+
+.hentry header { }
+.hentry h2 a { text-decoration: none; }
+.hentry time { display: block; }
+.hentry p.byline { }
+.hentry footer { clear: both; }
+
+
+
+/* =============================================================================
+   Post Comments
+   ========================================================================== */
+
+#comments, #respond, #submit { clear: both; display: block; }
+ol.commentlist img.avatar { float: left; margin-right: 10px; }
+
+
+
+/* =============================================================================
+   Footer
+   ========================================================================== */
+
+#content-info {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+}
+
+#content-info p small { font-size: 13px; }
+
+
+
+/* =============================================================================
+   WordPress Generated Classes
+   See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes
+   ========================================================================== */
+
+.aligncenter { display: block; margin: 0 auto; }
+.alignleft { margin: 0 20px 20px 0; float: left; }
+.alignright { margin: 0 0 20px 20px; float: right; }
+
+
+
+/* =============================================================================
+   Media Queries
+   ========================================================================== */
+
+@media (max-width: 980px) {
+  /* Fix top padding when using the responsive grid with the fixed topbar */
+  body {
+    padding-top: 0;
+  }
+}
+
+/* =============================================================================
+   Overrides
+   ========================================================================== */
+
+.hero-unit {
+    padding: 25px;
+}
+
+.thumbnail {
+  background-color: #FFFFFF;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+}
+.hero-unit h2 {
+    font-size: 22px;
+}
+tr.highlight{
+ background-color: #FFFFCE
+}
+tr.gray{
+ background-color: #F5F5F5
+}
+.accordion-group {
+    border: 0px;
+    border-radius: 0px;
+    margin-bottom: 2px;
+}
+.accordion-heading .accordion-toggle {
+    padding: 2px;
+}
+.table td.more {
+    border-top: 0px solid #DDDDDD;
+    line-height: 18px;
+    padding: 0px;
+    text-align: left;
+    vertical-align: top;
+}
+.table td.icon {
+    border-top: 1px solid #DDDDDD;
+    line-height: 18px;
+    padding: 10px 0 0 5px;
+    text-align: left;
+    vertical-align: top;
+}
+#tower {
+  padding-right: 60px;
+  float: right;
+  margin-bottom: -25px;
+  margin-top: -35px;
+}
+#title {
+  font-size: 55px;
+}
+
+#wrapper .gform_wrapper .top_label .gfield_label {
+  float: none !important;
+  display: block;
+  width: auto !important;
+}
+.gfield_required {
+  color: red;
+}
+.gfield_label {
+  font-weight: bold;
+  margin-left: 0;
+}
+.gform_body ul {
+padding-left: 0px !important;
+margin-left: -5px;
+}
+
+.gform_body li {
+list-style: none !important;
+}
+
+.social-widgets {
+    left: -115px;
+    position: relative;
+    text-align: right;
+    top: 8px;
+    width: 400px;
+}
+.social-google {
+    position: relative;
+}
+.social-facebook iframe {
+    padding: 0 0 12px 0;
+    height: 20px !important;
+    width: 75px !important;
+}
+.social-twitter iframe {
+    padding: 0 0 0 12px;
+    height: 20px !important;
+    width: 75px !important;
+}
+.social-linkedin {
+    position: relative;
+}
+.subscription {
+  background: url('../img/fabric.png') #2E2E2E;
+  margin: -5px -5px 5px -5px;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  color: white;
+  border: 1px solid #101010;
+  box-shadow: inset 0px 1px 1px #555;
+  -moz-box-shadow: inset 0px 1px 1px #555;
+  text-align: center;
+}
+.subscription h3 {
+  font-family: 'helvetica';
+  padding: 10px 0;
+}
+.subscription h2 {
+  font-family: 'helvetica';
+  padding: 25px 0;
+  color: #999;
+  font-size: 50px;
+  text-shadow: 1px 1px 1px black;
+}
+.subscription h1 {
+  font-family: 'Kaushan Script', cursive;
+  padding: 20px 0;
+  text-shadow: 1px 1px 1px black;
+}
+.subscription hr {
+  border-top: 1px solid black;
+  background: #404040;
+  color: black;
+  margin: 1px 0px;
+  display: block;
+  height: 1px;
+  border-bottom: 0;
+}
+.features ul li {
+  background: url('../img/ico_check.png') no-repeat 0 50%;
+  display: block;
+  list-style: inside none;
+  height: 14px;
+  padding: 10px 0 5px 30px;
+}
+.features h3 {
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+#sign-up {
+  width: 95%;
+}
+#annual {
+  color: #46a546;
+}
+#blank-list {
+  background: transparent;
+
+}
+.section-break {
+  line-height: 1px;
+  background: #eee;
+  border-top: 1px black;
+}
+
+
+.gform_wrapper .top_label .gfield_label {
+float: none;
+width: 650px;
+}

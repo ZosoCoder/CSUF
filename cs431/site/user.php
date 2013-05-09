@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!session_is_registered(username)) {
-        header("location:index.html");
+        header("location:index.php");
     }
     $link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
     mysqli_select_db($link,"cs431s21") or die(mysqli_error());
@@ -11,13 +11,23 @@
         <meta charset="utf=8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Site</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style type="text/css">
+            body { padding-top: 60px; }
+            @media (max-width: 979px) {
+                .navbar-fixed-top,
+                .navbar-fixed-bottom {
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <header class="row">
                 <div class="span12">
-                    <nav class="navbar">
+                    <div class="navbar navbar-fixed-top navbar-inverse" style="position:fixed">
                         <div class="navbar-inner">
                             <a href="#" class="brand">PHP Forum</a>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -40,7 +50,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="icon-user"></i> <?php echo $_SESSION['username']; ?><b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Inbox</a></li>
+                                            <li><a href="inbox.php">Inbox</a></li>
                                             <li><a href="#">Account</a></li>
                                             <li class="divider"></li>
                                             <li><a href="logout.php">Logout</a></li>
@@ -49,7 +59,7 @@
                                 </ul> <!-- End of navigation links -->
                             </div> <!-- nav-collapse end -->
                         </div> <!-- End navbar-inner -->
-                    </nav> <!-- End navbar -->
+                    </div> <!-- End navbar -->
                 </div> <!-- End span12 -->
             </header> <!-- End of header -->
             <div class="row" id="main-content">
