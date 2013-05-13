@@ -1,40 +1,29 @@
+<?php
+    session_start();
+    if (!session_is_registered(username)) {
+        header("location:index.php");
+    }
+    $link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
+    mysqli_select_db($link,"cs431s21") or die(mysqli_error());
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Inbox</title>
+        <title>Thread</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
+        
         <style type="text/css">
             .table thead tr.info > th {
-                background-color: #1b1b1b;
-                color: #cccccc;
-            }
-            .table-bordered th:first-child,
-            .table-bordered td:first-child {
-                border-left: 1px solid #dddddd;
-            }
-            .table-bordered th:last-child,
-            .table-bordered td:last-child {
-                border-left: 0;
-            }
-            .table-bordered th,
-            .table-bordered td {
-                border-top: 0;
-                border-bottom: 0;
+                background-color: #eeeeee;
             }
         </style>
-
-        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
         
-        <script type="text/javascript">
-            function re(id) {
-                $('#list').load('getusers.php?u='+id);
-            }
-        </script>
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     <body>
         <div id="wrap">
@@ -75,53 +64,63 @@
             </div> <!-- End navbar -->
 
             <div class="container">
-                <header class="row">
-                    <div id="clubs" class="span8 offset2">
-                        <table class="table table-bordered span8">
+                <?php
+                    $forumname = $_GET['f'];
+                    $query = mysqli_query($link,"SELECT * FROM FORUMS WHERE ForumName='$forumname'");
+                    if (mysqli_num_rows($query) > 0) {
+                        $forum = mysqli_fetch_assoc($query);
+                    } else {
+                        echo "<p>Query failed.</p>";
+                    }
+                ?>
+
+                <ul class="breadcrumb">
+                    <li><a href="forums.php">Forums</a> <span class="divider">/</span></li>
+                    <li class="active"><?php echo $forum['ForumName']; ?></li>
+                </ul> <!-- End breadcrumb -->
+                
+                <div class="row">
+                    <div class="span12">
+                        <table class="table table-condensed">
                             <thead>
                                 <tr class="info">
-                                    <th>Create Clubs</th>
-                                    <th></th>
+                                    <th>Title/Creator</th>
+                                    <th>Replies</th>
+                                    <th>Last Post By</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Club Names <span class="caret"></span></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" onClick="re('foo')">This is club name 1</a></li>
-                                                <li><a href="#" onClick="re('bar')">This is club name 1 blah blah blah</a></li>
-                                                <li><a href="#" onClick="re('foobar')">Ban</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Make admin</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select multiple style="min-height: 150px;">
-                                                    
-                                        </select>
-                                        <select multiple style="min-height: 150px;">
-                                                    
-                                        </select>
-                                    </td>
-                                    <td></td>
-                                </tr>
+                                <?php
+                                    $query = mysqli_query($link,"SELECT * FROM THREADS WHERE Forum='$forumname'");
+                                    while ($thread = mysqli_fetch_assoc($query)) {
+                                        $postq = mysqli_query($link,"SELECT * FROM POSTS WHERE Thread=".$thread['ThreadId']." ORDER BY PostTime DESC LIMIT 1");
+                                        $replyq = mysqli_query($link,"SELECT COUNT(*) AS count FROM POSTS WHERE Thread=".$thread['ThreadId']);
+                                        $replies = mysqli_fetch_assoc($replyq);
+                                        $last = mysqli_fetch_assoc($postq);
+                                        echo "
+                                            <tr>
+                                                <td class='span8'>
+                                                    <a href='threaddisplay.php?t=".$thread['ThreadId']."'>".$thread['Title']."</a><br>
+                                                    <p class='muted'>by: ".$thread['Creator'].", 2013-05-09</p>
+                                                </td>
+                                                <td class='span2'>
+                                                    Replies: ".$replies['count']."
+                                                </td>
+                                                <td class='span3'>
+                                                    ".$last['Author']."<br>
+                                                    ".$last['PostTime']."
+                                                </td>
+                                            </tr>";
+                                    }
+                                ?>
                             </tbody>
                         </table>
-                    </div> <!-- End span12 -->
-                </header> <!-- End of header -->
-                <div class="row" id="main-content">
-                    
-                </div> <!-- End of Main Content -->
-            </div><!-- End of Container -->
+                    </div>
+                </div>
+            </div> <!-- End Container -->
 
             <div id="push"></div>
-        </div>
+        </div> <!-- End wrap -->
 
         <div id="footer">
             <div class="container">
@@ -143,6 +142,5 @@
         <script src="js/bootstrap-collapse.js"></script>
         <script src="js/bootstrap-carousel.js"></script>
         <script src="js/bootstrap-typeahead.js"></script>
-        
     </body>
 </html>

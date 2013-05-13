@@ -1,0 +1,173 @@
+Anthony Gonzalez
+CPSC 335-03
+11 March 2013
+Project 2
+
+Out for the given tests:
+
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 20
+Total weight: 1000
+
+--Packages--
+Name : debianutils      Votes : 128329   Size :   90
+Name : libgcc1          Votes : 128327   Size :   46
+Name : debconf          Votes : 121503   Size :  168
+Name : gzip             Votes : 121346   Size :  142
+Name : lsb-base         Votes : 121121   Size :   26
+Name : sysv-rc          Votes : 121092   Size :   80
+Name : sysvinit-utils   Votes : 121078   Size :  116
+Name : base-files       Votes : 121072   Size :   65
+Name : initscripts      Votes : 121037   Size :   93
+Name : libselinux1      Votes : 120918   Size :  109
+
+--Run Stats--
+Total Size :  935  Total Votes : 1225823
+Elapsed time: 0.26 seconds
+-------------------------------------------------------------------------------
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 23
+Total weight: 720
+
+--Packages--
+Name : debianutils      Votes : 128329   Size :   90
+Name : libgcc1          Votes : 128327   Size :   46
+Name : gzip             Votes : 121346   Size :  142
+Name : lsb-base         Votes : 121121   Size :   26
+Name : sysv-rc          Votes : 121092   Size :   80
+Name : sysvinit-utils   Votes : 121078   Size :  116
+Name : base-files       Votes : 121072   Size :   65
+Name : initscripts      Votes : 121037   Size :   93
+Name : base-passwd      Votes : 120856   Size :   49
+
+--Run Stats--
+Total Size :  707  Total Votes : 1104258
+Elapsed time: 2.26 seconds
+-------------------------------------------------------------------------------
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 23
+Total weight: 1440
+
+--Packages--
+Name : debianutils      Votes : 128329   Size :   90
+Name : libgcc1          Votes : 128327   Size :   46
+Name : debconf          Votes : 121503   Size :  168
+Name : gzip             Votes : 121346   Size :  142
+Name : sed              Votes : 121220   Size :  261
+Name : lsb-base         Votes : 121121   Size :   26
+Name : sysv-rc          Votes : 121092   Size :   80
+Name : sysvinit-utils   Votes : 121078   Size :  116
+Name : base-files       Votes : 121072   Size :   65
+Name : initscripts      Votes : 121037   Size :   93
+Name : libselinux1      Votes : 120918   Size :  109
+Name : cron             Votes : 120872   Size :  120
+Name : base-passwd      Votes : 120856   Size :   49
+
+--Run Stats--
+Total Size : 1365  Total Votes : 1588771
+Elapsed time: 2.31 seconds
+-------------------------------------------------------------------------------
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 23
+Total weight: 25600
+
+--Packages--
+Name : debianutils      Votes : 128329   Size :   90
+Name : libgcc1          Votes : 128327   Size :   46
+Name : dpkg             Votes : 128294   Size : 2672
+Name : perl-base        Votes : 127369   Size : 1969
+Name : debconf          Votes : 121503   Size :  168
+Name : grep             Votes : 121426   Size :  595
+Name : gzip             Votes : 121346   Size :  142
+Name : login            Votes : 121332   Size :  980
+Name : coreutils        Votes : 121240   Size : 6505
+Name : bash             Votes : 121229   Size : 1673
+Name : sed              Votes : 121220   Size :  261
+Name : findutils        Votes : 121173   Size :  805
+Name : lsb-base         Votes : 121121   Size :   26
+Name : sysv-rc          Votes : 121092   Size :   80
+Name : sysvinit-utils   Votes : 121078   Size :  116
+Name : base-files       Votes : 121072   Size :   65
+Name : initscripts      Votes : 121037   Size :   93
+Name : util-linux       Votes : 121022   Size :  846
+Name : mount            Votes : 120961   Size :  272
+Name : libselinux1      Votes : 120918   Size :  109
+Name : cron             Votes : 120872   Size :  120
+Name : base-passwd      Votes : 120856   Size :   49
+Name : apt              Votes : 120826   Size : 1356
+
+--Run Stats--
+Total Size : 19038  Total Votes : 2813643
+Elapsed time: 2.68 seconds
+-------------------------------------------------------------------------------
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 23
+Total weight: 65356
+
+--Packages--
+Name : debianutils      Votes : 128329   Size :   90
+Name : libgcc1          Votes : 128327   Size :   46
+Name : dpkg             Votes : 128294   Size : 2672
+Name : perl-base        Votes : 127369   Size : 1969
+Name : debconf          Votes : 121503   Size :  168
+Name : grep             Votes : 121426   Size :  595
+Name : gzip             Votes : 121346   Size :  142
+Name : login            Votes : 121332   Size :  980
+Name : coreutils        Votes : 121240   Size : 6505
+Name : bash             Votes : 121229   Size : 1673
+Name : sed              Votes : 121220   Size :  261
+Name : findutils        Votes : 121173   Size :  805
+Name : lsb-base         Votes : 121121   Size :   26
+Name : sysv-rc          Votes : 121092   Size :   80
+Name : sysvinit-utils   Votes : 121078   Size :  116
+Name : base-files       Votes : 121072   Size :   65
+Name : initscripts      Votes : 121037   Size :   93
+Name : util-linux       Votes : 121022   Size :  846
+Name : mount            Votes : 120961   Size :  272
+Name : libselinux1      Votes : 120918   Size :  109
+Name : cron             Votes : 120872   Size :  120
+Name : base-passwd      Votes : 120856   Size :   49
+Name : apt              Votes : 120826   Size : 1356
+
+--Run Stats--
+Total Size : 19038  Total Votes : 2813643
+Elapsed time: 2.11 seconds
+-------------------------------------------------------------------------------
+
+3. (a) The highest value n possible for this algorithm (30) ran in 5 minutes
+43 seconds for W = 2000. The output is below:
+
+C:\Users\Tony\Desktop\project>java KnapsackPackages
+Number of packages(<30): 30
+Total weight: 2000
+
+--Packages--
+Name : debianutils              Votes : 128329   Size :   90
+Name : libgcc1                  Votes : 128327   Size :   46
+Name : debconf                  Votes : 121503   Size :  168
+Name : gzip                     Votes : 121346   Size :  142
+Name : sed                      Votes : 121220   Size :  261
+Name : lsb-base                 Votes : 121121   Size :   26
+Name : sysv-rc                  Votes : 121092   Size :   80
+Name : sysvinit-utils           Votes : 121078   Size :  116
+Name : base-files               Votes : 121072   Size :   65
+Name : initscripts              Votes : 121037   Size :   93
+Name : mount                    Votes : 120961   Size :  272
+Name : libselinux1              Votes : 120918   Size :  109
+Name : cron                     Votes : 120872   Size :  120
+Name : base-passwd              Votes : 120856   Size :   49
+Name : logrotate                Votes : 120745   Size :   64
+Name : popularity-contest       Votes : 120729   Size :   67
+Name : libacl1                  Votes : 120676   Size :   36
+Name : libpopt0                 Votes : 120460   Size :   68
+Name : zlib1g                   Votes : 120263   Size :  116
+
+--Run Stats--
+Total Size : 1988  Total Votes : 2312605
+Elapsed time: 343.62 seconds
+
+(b) The algorithm runs in exponential time, so it becomes very slow as the 
+input size increases. This means that it is only practical for very small
+input sizes.
+
+4. The source code for this project is on the following pages.

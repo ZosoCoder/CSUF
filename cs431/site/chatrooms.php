@@ -5,36 +5,9 @@
 
         <title>Inbox</title>
         
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/app.css" rel="stylesheet">
-        <link href="css/footer.css" rel="stylesheet">
-        <style type="text/css">
-            .table thead tr.info > th {
-                background-color: #1b1b1b;
-                color: #cccccc;
-            }
-            .table-bordered th:first-child,
-            .table-bordered td:first-child {
-                border-left: 1px solid #dddddd;
-            }
-            .table-bordered th:last-child,
-            .table-bordered td:last-child {
-                border-left: 0;
-            }
-            .table-bordered th,
-            .table-bordered td {
-                border-top: 0;
-                border-bottom: 0;
-            }
-        </style>
-
-        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-        
-        <script type="text/javascript">
-            function re(id) {
-                $('#list').load('getusers.php?u='+id);
-            }
-        </script>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/app.css" rel="stylesheet">
+        <link href="../css/footer.css" rel="stylesheet">
     </head>
     <body>
         <div id="wrap">
@@ -75,49 +48,7 @@
             </div> <!-- End navbar -->
 
             <div class="container">
-                <header class="row">
-                    <div id="clubs" class="span8 offset2">
-                        <table class="table table-bordered span8">
-                            <thead>
-                                <tr class="info">
-                                    <th>Create Clubs</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Club Names <span class="caret"></span></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" onClick="re('foo')">This is club name 1</a></li>
-                                                <li><a href="#" onClick="re('bar')">This is club name 1 blah blah blah</a></li>
-                                                <li><a href="#" onClick="re('foobar')">Ban</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Make admin</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select multiple style="min-height: 150px;">
-                                                    
-                                        </select>
-                                        <select multiple style="min-height: 150px;">
-                                                    
-                                        </select>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> <!-- End span12 -->
-                </header> <!-- End of header -->
-                <div class="row" id="main-content">
-                    
-                </div> <!-- End of Main Content -->
+                <?php include('chat.php'); ?>
             </div><!-- End of Container -->
 
             <div id="push"></div>

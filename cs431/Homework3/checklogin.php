@@ -13,7 +13,7 @@
 		session_register("password");
 		header("location:user.php");
 	} else {
-		header("location:foo.html");
+		header("location:home.php");
 	}
 	ob_end_flush();
 ?>
