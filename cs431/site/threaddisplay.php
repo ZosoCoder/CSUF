@@ -59,13 +59,13 @@
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href="#"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
+                                <li><a href="chat/chatrooms.php"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav pull-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user"></i> ZosoCoder <b class="caret"></b></a>
+                                        <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="inbox.php">Inbox</a></li>
                                         <li><a href="user.php">Account</a></li>

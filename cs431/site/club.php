@@ -5,23 +5,18 @@
     }
     $link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
     mysqli_select_db($link,"cs431s21") or die(mysqli_error());
+    ob_start();
 ?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Forums</title>
+        <title>Thread</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
-        
-        <style type="text/css">
-            .table thead tr.info > th {
-                background-color: #eeeeee;
-            }
-        </style>
         
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
@@ -62,59 +57,48 @@
                     </div>
                 </div>
             </div> <!-- End navbar -->
+            
+            <?php
+                $c = $_GET['c'];
+                $query = mysqli_query($link,"SELECT * FROM CLUBS WHERE ClubName='$c'");
+                $club = mysqli_fetch_assoc($query);
+                $mimetype = $club['mimetype'];
+            ?>
 
             <div class="container">
-                <div class="hero-unit">
-                    <h1>Welcome to the Forums</h1>
+                <div class="row">
+                    <div class="span4" id="picture">
+                        <?php 
+                            if ($club['Picture'] == null) {
+                                echo '<img src="img/default-club.jpg">';
+                            } else {
+                                echo "<img src='data:$mimetype;base64," . base64_encode($club['Picture']) . "'/>"; 
+                            }
+                        ?>
+                        <br><br>
+                        <button class="btn" href="#">Join Club</button>
+                        <button class="btn" href="#">Leave Club</button>
+                        <br><br>
+                        Club Admin: <?php echo $club['Moderator']." Moderator"; ?>
+                    </div>
+                    <div class="span8" id="name">
+                        <h1><?php echo $club['ClubName']; ?></h1>
+                        <div>
+                            <h3>Profile</h3>
+                            <p><?php echo $club['Profile']; ?></p>
+                        </div>
+                    </div>
                 </div>
-                
-                <?php
-                    $clubq = mysqli_query($link,"SELECT * FROM CLUBS");
-                    while ($club = mysqli_fetch_assoc($clubq)) {
-                        $forumq = mysqli_query($link,"SELECT * FROM FORUMS WHERE Club='".$club['ClubName']."'");
-                        echo "
-                            <div class='row'>
-                                <div class='span12'>
-                                    <table class='table table-condensed'>
-                                        <thead>
-                                            <tr class='info'>
-                                                <th class='span8'><a href='club.php?c=".$club['ClubName']."'>".$club['ClubName']."</a></th>
-                                                <th class='span4'></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>";
-                        while ($forum = mysqli_fetch_assoc($forumq)) {
-                            $threadq = mysqli_query($link,"SELECT COUNT(*) AS count FROM THREADS WHERE Forum='".$forum['ForumName']."'");
-                            $threads = mysqli_fetch_assoc($threadq);
-                            echo "
-                                            <tr>
-                                                <td class='span8'>
-                                                    <a href='forumdisplay.php?f=".$forum['ForumName']."'>".$forum['ForumName']."</a><br>
-                                                    <p class='muted'>".$forum['Description']."</p>
-                                                </td>
-                                                <td class='span4'>
-                                                    Threads: ".$threads['count']."
-                                                </td>
-                                            </tr>";
-                        }
-                        echo "
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>";
-                    }
+            </div> <!-- End container -->
 
-                ?>
-            </div>
-            
             <div id="push"></div>
-        </div> <!-- End of wrap -->
+        </div>
 
         <div id="footer">
             <div class="container">
                 <p class="muted credit"> Built with <a href="http://twitter.github.io/bootstrap/index.html">Twitter Bootstrap</a>.</p>
             </div>
-        </div>
+        </div> <!-- End of Footer -->
 
         <!-- Javascript -->
         <script src="js/jquery.js"></script>

@@ -17,6 +17,12 @@
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+        <script type="text/javascript">
+            function read(id) {
+                $(id).removeClass('success').addClass('');
+            }
+        </script>
     </head>
     <body>
         <div id="wrap">
@@ -36,13 +42,13 @@
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href="#"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
+                                <li><a href="chat/chatrooms.php"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav pull-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user"></i> ZosoCoder <b class="caret"></b></a>
+                                        <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="inbox.php">Inbox</a></li>
                                         <li><a href="user.php">Account</a></li>
@@ -88,15 +94,15 @@
                                                 $total = mysqli_num_rows($result);
                                                 if ($total > 0) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        if ($row['status'] == "Unread") {
-                                                            echo "<tr class='success'>";
+                                                        if ($row['Status'] == "Unread") {
+                                                            echo "<tr class='success' id='row$count'>";
                                                         }   else {
                                                             echo "<tr>";
                                                         }
                                                         echo "      <td width=20>
                                                                         <div class='accordion-group'>
                                                                             <div class='accordion-heading'>
-                                                                                <a href='#msg$count' data-parents='#accordion2' data-toggle='collapse' class='accordion-toggle'>
+                                                                                <a href='#msg$count' data-parents='#accordion2' onClick=\"read('#row$count')\" data-toggle='collapse' class='accordion-toggle'>
                                                                                     <i class='icon-eye-open'></i>
                                                                                 </a>
                                                                             </div>
@@ -145,7 +151,7 @@
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $count = 0;
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        if ($row['status'] == "Unread") {
+                                                        if ($row['Status'] == "Unread") {
                                                             echo "<tr class='success'>";
                                                         }   else {
                                                             echo "<tr>";
@@ -185,7 +191,7 @@
 
                             <div class="tab-pane" id="compose">
                                 <div class="well">
-                                    <form id="compose-form" method="post" action="inbox.php">
+                                    <form id="compose-form" method="post">
                                         <fieldset>
                                             <div class="control-group controls">
                                                 <input type="text" class="input-block-level" name="recipient" id="recipient" placeholder="Send to">
@@ -197,7 +203,7 @@
                                                 <textarea class="input-block-level" rows="10" name="message" id="message" placeholder="Type your message here..."></textarea>
                                             </div>
                                             <div class="pull-right">
-                                                <button class="btn btn-primary">Send</button>
+                                                <button type="submit "class="btn btn-primary" name="composeMsg">Send</button>
                                             </div>
                                         </fieldset>
                                     </form>
@@ -216,6 +222,24 @@
             </div>
         </div> <!-- End of Footer -->
 
+        <div id="no_user" class="modal hide fade" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-remove"></i>
+                </button>
+                <h3 id="modalLabel">Invalid User</h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">x</a>
+                    <strong>Error!</strong> The recipient does not exist. Please try again.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" data-toggle="modal" href="#register">Try again</button>
+            </div>
+        </div> <!-- End of Modal nameTaken -->
+
         <!-- Javascript -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap-transition.js"></script>
@@ -230,5 +254,24 @@
         <script src="js/bootstrap-collapse.js"></script>
         <script src="js/bootstrap-carousel.js"></script>
         <script src="js/bootstrap-typeahead.js"></script>
+
+        <?php
+            if (isset($_POST['composeMsg'])) {
+                $receiver = $_POST['recipient'];
+                $result = mysqli_query($link,"SELECT COUNT(*) AS count FROM USERS WHERE Username='$receiver'");
+                $users = mysqli_fetch_assoc($result);
+                if ($users['count'] > 0) {
+                    $subject = $_POST['subject'];
+                    $MsgText = $_POST['message'];
+                    $sender = $_SESSION['username'];
+                    if (strlen($subject) == 0)
+                        $subject = "(no subject)";
+                    mysqli_query($link,"INSERT INTO MAILBOX (Subject,MsgTime,MsgText,Sender,Receiver,Status)
+                                        VALUES ('$subject',NOW(),'$MsgText','$sender','$receiver','Unread')");
+                } else {
+                    echo "<script type='text/javascript'>$('#no_user').modal('show');</script>";
+                }
+            }
+        ?>
     </body>
 </html>

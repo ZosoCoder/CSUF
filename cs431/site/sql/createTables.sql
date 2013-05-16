@@ -13,7 +13,8 @@ CREATE TABLE MAILBOX (
     MsgText text,
     Sender varchar(255) NOT NULL,
     Receiver varchar(255) NOT NULL,
-    Status varchar(6) NOT NULL,
+    InStatus varchar(10) NOT NULL,
+    OutStatus varchar(10) NOT NULL,
     PRIMARY KEY (MessageID),
     FOREIGN KEY (Sender) REFERENCES USERS(Username),
     FOREIGN KEY (Receiver) REFERENCES USERS(Username)

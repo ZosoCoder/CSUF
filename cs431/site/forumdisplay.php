@@ -43,13 +43,13 @@
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href="#"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
+                                <li><a href="chat/chatrooms.php"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav pull-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user"></i> ZosoCoder <b class="caret"></b></a>
+                                        <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="inbox.php">Inbox</a></li>
                                         <li><a href="user.php">Account</a></li>
@@ -80,6 +80,12 @@
                 </ul> <!-- End breadcrumb -->
                 
                 <div class="row">
+                    <div class="span12">
+                        <button class='btn btn-success pull-right' href='#startThread' data-toggle='modal'>Start a Thread</button>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top: 10px;">
                     <div class="span12">
                         <table class="table table-condensed">
                             <thead>
@@ -127,6 +133,46 @@
                 <p class="muted credit"> Built with <a href="http://twitter.github.io/bootstrap/index.html">Twitter Bootstrap</a>.</p>
             </div>
         </div> <!-- End of Footer -->
+        
+        <div id="notAMember" class="modal hide fade" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-remove"></i>
+                </button>
+                <h3 id="modalLabel">Not a member</h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">x</a>
+                    <strong>Error!</strong> You do not have permission to start a thread. You must be a member of the
+                    club this forum belongs to.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div> <!-- End of Modal userBanned -->
+
+        <div id="startThread" class="modal hide fade" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-remove"></i>
+                </button>
+                <h3>Start New Thread</h3>
+            </div>
+
+            <div class="modal-body">
+                <form method="post">
+                    <input type="text" class="input-block-level" name="title" placeholder="Thread title">
+                    <textarea class="input-block-level" rows="10" name="message" placeholder="Type your message here..."></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" type="submit" name="createThread">Save</button>
+            </div>
+                </form>
+        </div> <!-- End of startThread -->
 
         <!-- Javascript -->
         <script src="js/jquery.js"></script>
@@ -142,5 +188,26 @@
         <script src="js/bootstrap-collapse.js"></script>
         <script src="js/bootstrap-carousel.js"></script>
         <script src="js/bootstrap-typeahead.js"></script>
+
+        <?php
+            if (isset($_POST['createThread'])) {
+                $perm = mysqli_query($link,"SELECT COUNT(*) AS count FROM CLUBMEMBERS WHERE Club='".
+                                    $forum['Club']."' AND User=;".$_SESSION['username']."'");
+                if ($perm['count'] == 1 || $_SESSION['username'] == 'admin') {
+                    $title = $_POST['title'];
+                    $message = $_POST['message'];
+                    $author = $_SESSION['username'];
+                    $query = mysqli_query($link,"INSERT INTO THREADS (Title,DateCreated,Creator,Forum) ".
+                                            "VALUES ('$title',NOW(),'$author','".$forum['ForumName']."')");
+                    $tid = mysqli_insert_id($link);
+                    $query = mysqli_query($link,"INSERT INTO POSTS (PostText,PostTime,Author,Thread) ".
+                                            "VALUES ('$message',NOW(),'$author',$tid)");
+                    echo "<meta http-equiv='refresh' content='0'>";
+                } else {
+                    echo "<script type='text/javascript'>$('#notAMember').modal('show');</script>";
+                }
+            }
+        ?>
+
     </body>
 </html>

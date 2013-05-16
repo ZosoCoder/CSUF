@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" data-toggle="modal" href="#register">Close</button>
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         </div> <!-- End of Modal userBanned -->
 
@@ -185,7 +185,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" data-toggle="modal" href="#register">Close</button>
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         </div> <!-- End of Modal loginFail -->
 

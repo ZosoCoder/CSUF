@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if (!session_is_registered(username)) {
+        header("location:../index.php");
+    }
+    $link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
+    mysqli_select_db($link,"cs431s21") or die(mysqli_error());
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -23,22 +31,22 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                                <li><a href="user.php"><i class="icon-home icon-white"></i> Home</a></li>
+                                <li><a href="../user.php"><i class="icon-home icon-white"></i> Home</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
+                                <li><a href="../forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href="#"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
+                                <li><a href=""><i class="icon-comment icon-white"></i> Chatrooms</a></li>
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav pull-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user"></i> ZosoCoder <b class="caret"></b></a>
+                                        <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="inbox.php">Inbox</a></li>
-                                        <li><a href="user.php">Account</a></li>
+                                        <li><a href="../inbox.php">Inbox</a></li>
+                                        <li><a href="../user.php">Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="logout.php">Logout</a></li>
+                                        <li><a href="../logout.php">Logout</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End of navigation links -->
@@ -61,19 +69,19 @@
         </div> <!-- End of Footer -->
 
         <!-- Javascript -->
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap-transition.js"></script>
-        <script src="js/bootstrap-alert.js"></script>
-        <script src="js/bootstrap-modal.js"></script>
-        <script src="js/bootstrap-dropdown.js"></script>
-        <script src="js/bootstrap-scrollspy.js"></script>
-        <script src="js/bootstrap-tab.js"></script>
-        <script src="js/bootstrap-tooltip.js"></script>
-        <script src="js/bootstrap-popover.js"></script>
-        <script src="js/bootstrap-button.js"></script>
-        <script src="js/bootstrap-collapse.js"></script>
-        <script src="js/bootstrap-carousel.js"></script>
-        <script src="js/bootstrap-typeahead.js"></script>
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap-transition.js"></script>
+        <script src="../js/bootstrap-alert.js"></script>
+        <script src="../js/bootstrap-modal.js"></script>
+        <script src="../js/bootstrap-dropdown.js"></script>
+        <script src="../js/bootstrap-scrollspy.js"></script>
+        <script src="../js/bootstrap-tab.js"></script>
+        <script src="../js/bootstrap-tooltip.js"></script>
+        <script src="../js/bootstrap-popover.js"></script>
+        <script src="../js/bootstrap-button.js"></script>
+        <script src="../js/bootstrap-collapse.js"></script>
+        <script src="../js/bootstrap-carousel.js"></script>
+        <script src="../js/bootstrap-typeahead.js"></script>
         
     </body>
 </html>
