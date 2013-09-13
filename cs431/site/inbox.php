@@ -14,13 +14,19 @@
         <title>Inbox</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 
-        <script type="text/javascript">
-            function read(id) {
-                $(id).removeClass('success').addClass('');
+        <script type="text/javascript" language="javascript">
+            function read(id,dir) {
+                $('#'+dir+'row'+id).removeClass('success').addClass('');
+                $('#php').load('sql/markRead.php?id='+id+'&d='+dir+'Status');
+            }
+            function delrow(id,dir) {
+                $('#'+dir+'row'+id).remove();
+                $('#php').load('sql/deleteMsg.php?id='+id+'&d='+dir+'Status');
             }
         </script>
     </head>
@@ -29,7 +35,7 @@
             <div class="navbar navbar-fixed-top navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">    
-                        <a href="#" class="brand">PHP Forum</a>
+                        <a href="#" class="brand">431 Community</a>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -38,7 +44,7 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                                <li><a href="user.php"><i class="icon-home icon-white"></i> Home</a></li>
+                                <li><a href="clubpage.php"><i class="icon-group"></i> Clubs</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
@@ -50,10 +56,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="inbox.php">Inbox</a></li>
-                                        <li><a href="user.php">Account</a></li>
+                                        <li><a href="inbox.php"><i class="icon-inbox"></i> Inbox</a></li>
+                                        <li><a href="user.php"><i class="icon-wrench"></i> Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="logout.php">Logout</a></li>
+                                        <li><a href="logout.php"><i class="icon-off"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End of navigation links -->
@@ -66,7 +72,7 @@
                 <div class="hero-unit">
                     <h1>Mailbox</h1>
                 </div>
-
+                <div id="php"></div>
                 <div class="row" id="mailbox">
                     <div class="tabbable tabs-left">
                         <ul class="nav nav-tabs">
@@ -94,35 +100,37 @@
                                                 $total = mysqli_num_rows($result);
                                                 if ($total > 0) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        if ($row['Status'] == "Unread") {
-                                                            echo "<tr class='success' id='row$count'>";
-                                                        }   else {
-                                                            echo "<tr>";
+                                                        if ($row['InStatus'] != 'deleted') {    
+                                                            if ($row['InStatus'] == "Unread") {
+                                                                echo "<tr class='success' id='Inrow".$row['MessageID']."'>";
+                                                            }   else {
+                                                                echo "<tr id='Inrow".$row['MessageID']."'>";
+                                                            }
+                                                            echo "      <td width=20>
+                                                                            <div class='accordion-group'>
+                                                                                <div class='accordion-heading'>
+                                                                                    <a href='#msg$count' data-parents='#accordion2' onClick=\"read('".$row['MessageID']."','In')\" data-toggle='collapse' class='accordion-toggle'>
+                                                                                        <i class='icon-eye-open'></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                        </td>
+                                                                        <td>".$row['Sender']."</td>
+                                                                        <td>".$row['Subject']."</td>
+                                                                        <td>".$row['MsgTime']."</td>
+                                                                        <td><a href='#' onClick=\"delrow('".$row['MessageID']."','In')\" class='btn btn-danger'>Delete</a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class='more'></td>
+                                                                       <td colspan='4' class='more'>
+                                                                           <div class='accordion-body collapse' id='msg$count'>
+                                                                                <div class='accordion-inner'>
+                                                                                    ".nl2br($row['MsgText'])."
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                            </div>";
                                                         }
-                                                        echo "      <td width=20>
-                                                                        <div class='accordion-group'>
-                                                                            <div class='accordion-heading'>
-                                                                                <a href='#msg$count' data-parents='#accordion2' onClick=\"read('#row$count')\" data-toggle='collapse' class='accordion-toggle'>
-                                                                                    <i class='icon-eye-open'></i>
-                                                                                </a>
-                                                                            </div>
-                                                                    </td>
-                                                                    <td>".$row['Sender']."</td>
-                                                                    <td>".$row['Subject']."</td>
-                                                                    <td>".$row['MsgTime']."</td>
-                                                                    <td><a href='#' class='btn btn-danger'>Delete</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class='more'></td>
-                                                                   <td colspan='4' class='more'>
-                                                                       <div class='accordion-body collapse' id='msg$count'>
-                                                                            <div class='accordion-inner'>
-                                                                                ".nl2br($row['MsgText'])."
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                        </div>";
                                                         $count += 1;
                                                     }
                                                 }
@@ -151,35 +159,37 @@
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $count = 0;
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        if ($row['Status'] == "Unread") {
-                                                            echo "<tr class='success'>";
-                                                        }   else {
-                                                            echo "<tr>";
-                                                        }   
-                                                        echo "      <td width=20>
-                                                                        <div class='accordion-group'>
-                                                                            <div class='accordion-heading'>
-                                                                                <a href='#outmsg$count' data-parents='#accordion3' data-toggle='collapse' class='accordion-toggle'>
-                                                                                    <i class='icon-eye-open'></i>
-                                                                                </a>
+                                                        if ($row['OutStatus'] != 'deleted') {    
+                                                            if ($row['OutStatus'] == "Unread") {
+                                                                echo "<tr class='success' id='Outrow".$row['MessageID']."'>";
+                                                            }   else {
+                                                                echo "<tr id='Outrow".$row['MessageID']."'>";
+                                                            }   
+                                                            echo "      <td width=20>
+                                                                            <div class='accordion-group'>
+                                                                                <div class='accordion-heading'>
+                                                                                    <a href='#outmsg$count' data-parents='#accordion3' onClick=\"read('".$row['MessageID']."','Out')\" data-toggle='collapse' class='accordion-toggle'>
+                                                                                        <i class='icon-eye-open'></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                        </td>
+                                                                        <td>".$row['Receiver']."</td>
+                                                                        <td>".$row['Subject']."</td>
+                                                                        <td>".$row['MsgTime']."</td>
+                                                                        <td><a onClick=\"delrow('".$row['MessageID']."','Out')\" class='btn btn-danger'>Delete</a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class='more'></td>
+                                                                        <td colspan='4' class='more'>
+                                                                            <div class='accordion-body collapse' id='outmsg$count'>
+                                                                                <div class='accordion-inner'>
+                                                                                    ".nl2br($row['MsgText'])."
+                                                                                </div>
                                                                             </div>
-                                                                    </td>
-                                                                    <td>".$row['Receiver']."</td>
-                                                                    <td>".$row['Subject']."</td>
-                                                                    <td>".$row['MsgTime']."</td>
-                                                                    <td><a href='#' class='btn btn-danger'>Delete</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class='more'></td>
-                                                                    <td colspan='4' class='more'>
-                                                                        <div class='accordion-body collapse' id='outmsg$count'>
-                                                                            <div class='accordion-inner'>
-                                                                                ".nl2br($row['MsgText'])."
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                        </div>";
+                                                                        </td>
+                                                                    </tr>
+                                                                            </div>";
+                                                        }
                                                         $count += 1;
                                                     }
                                                 }
@@ -266,8 +276,9 @@
                     $sender = $_SESSION['username'];
                     if (strlen($subject) == 0)
                         $subject = "(no subject)";
-                    mysqli_query($link,"INSERT INTO MAILBOX (Subject,MsgTime,MsgText,Sender,Receiver,Status)
-                                        VALUES ('$subject',NOW(),'$MsgText','$sender','$receiver','Unread')");
+                    mysqli_query($link,"INSERT INTO MAILBOX (Subject,MsgTime,MsgText,Sender,Receiver,InStatus,OutStatus)
+                                        VALUES ('$subject',NOW(),'$MsgText','$sender','$receiver','Unread','Unread')");
+                    echo "<meta http-equiv='refresh' content='0'>";
                 } else {
                     echo "<script type='text/javascript'>$('#no_user').modal('show');</script>";
                 }

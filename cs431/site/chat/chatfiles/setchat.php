@@ -6,10 +6,12 @@ define('CHATLINK', 1);             // allows links in texts (1), not allow (0)
 
 // Here create the rooms for chat
 // For more rooms, add lines with this syntax  $chatrooms[] = 'room_name';
+$link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
+mysqli_select_db($link,"cs431s21") or die(mysqli_error());
 $chatrooms = array();
-$chatrooms[] = 'English';
-$chatrooms[] = 'Nature';
-
+$query = mysqli_query($link,"SELECT * FROM CLUBS");
+while ($result = mysqli_fetch_assoc($query))
+    $chatrooms[] = $result['ClubName'];
 
 // password used to empty chat rooms after this page is accessed with ?mod=admin
 define('CADMPASS', 'adminpass');
@@ -21,7 +23,7 @@ define('CADMPASS', 'adminpass');
 
 // If you want than only the logged users to can add texts in chat, sets CHATADD to 0
 // And sets $_SESSION['username'] with the session that your script uses to keep logged users
-define('CHATADD', 1);
+define('CHATADD', 0);
 if(CHATADD !== 1) {
   if(isset($_SESSION['username'])) define('CHATUSER', $_SESSION['username']);
 }

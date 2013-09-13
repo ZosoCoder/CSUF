@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Inbox</title>
+        <title>Home</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href='css/font-awesome.min.css' rel="stylesheet">
@@ -40,7 +40,7 @@
             <div class="navbar navbar-fixed-top navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">
-                        <a href="#nameTaken" data-toggle="modal" class="brand">PHP Forum</a>
+                        <a href="#" class="brand">431 Community</a>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -114,7 +114,7 @@
                 <h3 id="modalLabel">Register</h3>
             </div>
             <div class="modal-body">
-                <form id="contact-form" method="post" action="index.php">
+                <form id="contact-form" method="post">
                     <div class="control-group controls">
                         <input type="text" class="span5" style="min-height: 30px;" name="fullname" id="fullname" placeholder="Full Name">
                     </div>

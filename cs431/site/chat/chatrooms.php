@@ -11,18 +11,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Inbox</title>
+        <title>Chatroom</title>
         
         <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/app.css" rel="stylesheet">
         <link href="../css/footer.css" rel="stylesheet">
+
+        <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     <body>
         <div id="wrap">
             <div class="navbar navbar-fixed-top navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">    
-                        <a href="#" class="brand">PHP Forum</a>
+                        <a href="#" class="brand">431 Community</a>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -31,11 +34,11 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                                <li><a href="../user.php"><i class="icon-home icon-white"></i> Home</a></li>
+                                <li><a href="../clubpage.php"><i class="icon-group"></i> Clubs</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="../forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a href=""><i class="icon-comment icon-white"></i> Chatrooms</a></li>
+                                <li><a href="../chat/chatrooms.php"><i class="icon-comment icon-white"></i> Chatrooms</a></li>
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav pull-right">
@@ -43,10 +46,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="../inbox.php">Inbox</a></li>
-                                        <li><a href="../user.php">Account</a></li>
+                                        <li><a href="../inbox.php"><i class="icon-inbox"></i> Inbox</a></li>
+                                        <li><a href="../user.php"><i class="icon-wrench"></i> Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="../logout.php">Logout</a></li>
+                                        <li><a href="../logout.php"><i class="icon-off"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End of navigation links -->

@@ -19,10 +19,10 @@ public class KnapDP {
         for (i=1; i<=v.length; i++) {
             for (j=1; j<=max; j++) {
                 without = new ArrayList<Integer>(t.get((i-1)%2).get(j));
+                with = new ArrayList<Integer>();
                 if ((j - w[i-1]) >= 0) {
                     with = new ArrayList<Integer>(t.get((i-1)%2).get(j-w[i-1]));
-                    if (!with.contains(i-1))
-                        with.add(i-1);
+                    with.add(i-1);
                 }
                 if (value(without, v) > value(with, v))
                     t.get(i%2).set(j,without);

@@ -14,12 +14,14 @@
         <title>Forums</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
         
         <style type="text/css">
             .table thead tr.info > th {
-                background-color: #eeeeee;
+                background-color: #1b1b1b;
+                color: #cccccc;
             }
         </style>
         
@@ -30,7 +32,7 @@
             <div class="navbar navbar-fixed-top navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">    
-                        <a href="#" class="brand">PHP Forum</a>
+                        <a href="#" class="brand">431 Community</a>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -39,7 +41,7 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                                <li><a href="user.php"><i class="icon-home icon-white"></i> Home</a></li>
+                                <li><a href="clubpage.php"><i class="icon-group"></i> Clubs</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
@@ -51,10 +53,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="inbox.php">Inbox</a></li>
-                                        <li><a href="user.php">Account</a></li>
+                                        <li><a href="inbox.php"><i class="icon-inbox"></i> Inbox</a></li>
+                                        <li><a href="user.php"><i class="icon-wrench"></i> Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="logout.php">Logout</a></li>
+                                        <li><a href="logout.php"><i class="icon-off"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End of navigation links -->
@@ -84,12 +86,12 @@
                                         </thead>
                                         <tbody>";
                         while ($forum = mysqli_fetch_assoc($forumq)) {
-                            $threadq = mysqli_query($link,"SELECT COUNT(*) AS count FROM THREADS WHERE Forum='".$forum['ForumName']."'");
+                            $threadq = mysqli_query($link,"SELECT COUNT(*) AS count FROM THREADS WHERE Forum='".$forum['ForumId']."'");
                             $threads = mysqli_fetch_assoc($threadq);
                             echo "
                                             <tr>
                                                 <td class='span8'>
-                                                    <a href='forumdisplay.php?f=".$forum['ForumName']."'>".$forum['ForumName']."</a><br>
+                                                    <a href='forumdisplay.php?f=".$forum['ForumId']."'>".$forum['ForumName']."</a><br>
                                                     <p class='muted'>".$forum['Description']."</p>
                                                 </td>
                                                 <td class='span4'>

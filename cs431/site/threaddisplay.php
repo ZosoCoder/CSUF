@@ -5,7 +5,6 @@
     }
     $link = mysqli_connect('ecsmysql','cs431s21','aipaiziu') or die(mysqli_error());
     mysqli_select_db($link,"cs431s21") or die(mysqli_error());
-    ob_start();
 ?>
 <html lang="en">
     <head>
@@ -15,6 +14,7 @@
         <title>Thread</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
         <link href="css/footer.css" rel="stylesheet">
         
@@ -46,7 +46,7 @@
             <div class="navbar navbar-fixed-top navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">    
-                        <a href="#" class="brand">PHP Forum</a>
+                        <a href="#" class="brand">431 Community</a>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -55,7 +55,7 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                                <li><a href="user.php"><i class="icon-home icon-white"></i> Home</a></li>
+                                <li><a href="clubpage.php"><i class="icon-group"></i> Clubs</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="forums.php"><i class="icon-list-alt icon-white"></i> Forums</a></li>
                                 <li class="divider-vertical"></li>
@@ -67,10 +67,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="inbox.php">Inbox</a></li>
-                                        <li><a href="user.php">Account</a></li>
+                                        <li><a href="inbox.php"><i class="icon-inbox"></i> Inbox</a></li>
+                                        <li><a href="user.php"><i class="icon-wrench"></i> Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="logout.php">Logout</a></li>
+                                        <li><a href="logout.php"><i class="icon-off"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End of navigation links -->
@@ -85,14 +85,16 @@
                     $query = mysqli_query($link,"SELECT * FROM THREADS WHERE ThreadId=$threadId");
                     if (mysqli_num_rows($query) > 0) {
                         $thread = mysqli_fetch_assoc($query);
+                        $query = mysqli_query($link,"SELECT ForumName, Club FROM FORUMS WHERE ForumId=".$thread['Forum']);
+                        $forum = mysqli_fetch_assoc($query);
                     } else {
                         echo "<p>Query failed.</p>";
                     }
                 ?>
 
                 <ul class="breadcrumb">
-                    <li><a href="forums.php">Forums</a> <span class="divider">/</span></li>
-                    <li><a href=<?php echo '"forumdisplay.php?f='.$thread['Forum'].'"'; ?>>Parent Forum</a> <span class="divider">/</span></li>
+                    <li><a href=<?php echo '"club.php?c='.$forum['Club'].'"'; ?>><?php echo $forum['Club']; ?></a> <span class="divider">/</span></li>
+                    <li><a href=<?php echo '"forumdisplay.php?f='.$thread['Forum'].'"'; ?>><?php echo $forum['ForumName']; ?></a> <span class="divider">/</span></li>
                     <li class="active"><?php echo $thread['Title']; ?></li>
                 </ul>
 
@@ -133,6 +135,38 @@
             </div>
         </div> <!-- End of Footer -->
 
+        <!-- Javascript -->
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap-transition.js"></script>
+        <script src="js/bootstrap-alert.js"></script>
+        <script src="js/bootstrap-modal.js"></script>
+        <script src="js/bootstrap-dropdown.js"></script>
+        <script src="js/bootstrap-scrollspy.js"></script>
+        <script src="js/bootstrap-tab.js"></script>
+        <script src="js/bootstrap-tooltip.js"></script>
+        <script src="js/bootstrap-popover.js"></script>
+        <script src="js/bootstrap-button.js"></script>
+        <script src="js/bootstrap-collapse.js"></script>
+        <script src="js/bootstrap-carousel.js"></script>
+        <script src="js/bootstrap-typeahead.js"></script>
+
+        <div id="member_err" class="modal hide fade" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-remove"></i>
+                </button>
+                <h3 id="modalLabel">Not A Member</h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-error">
+                    <strong>Error!</strong> You must be a member of this club to post to the forums.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div> <!-- End of Modal nameTaken -->
+
         <div id="reply" class="modal hide fade" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -151,31 +185,22 @@
                 <button class="btn btn-primary" type="submit" name="reply">Reply</button>
             </div>
                 </form>
-        </div>
+        </div> <!-- End reply -->
 
         <?php
             if (isset($_POST['reply'])) {
-                $text = nl2br($_POST['message']);
-                $author = $_SESSION['username'];
-                $result = mysqli_query($link,"INSERT INTO POSTS (PostText,PostTime,Author,Thread) VALUES('$text',NOW(),'$author',".$thread['ThreadId'].")");
-                header("location:threaddisplay.php?t=$threadId");
-                ob_end_flush();
+                $q = "SELECT COUNT(*) AS count FROM CLUBMEMBERS WHERE User='".$_SESSION['username']."' AND Club='".$forum['Club']."'";
+                $query = mysqli_query($link,$q);
+                $result = mysqli_fetch_assoc($query);
+                if ($result['count'] == 0) {
+                    echo "<script type='text/javascript'>$('#member_err').modal('show');</script>";
+                } else {
+                    $text = nl2br($_POST['message']);
+                    $author = $_SESSION['username'];
+                    $result = mysqli_query($link,"INSERT INTO POSTS (PostText,PostTime,Author,Thread) VALUES('$text',NOW(),'$author',".$thread['ThreadId'].")");
+                    echo "<meta http-equiv='refresh' content='0'>";    
+                }
             }
         ?>
-
-        <!-- Javascript -->
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap-transition.js"></script>
-        <script src="js/bootstrap-alert.js"></script>
-        <script src="js/bootstrap-modal.js"></script>
-        <script src="js/bootstrap-dropdown.js"></script>
-        <script src="js/bootstrap-scrollspy.js"></script>
-        <script src="js/bootstrap-tab.js"></script>
-        <script src="js/bootstrap-tooltip.js"></script>
-        <script src="js/bootstrap-popover.js"></script>
-        <script src="js/bootstrap-button.js"></script>
-        <script src="js/bootstrap-collapse.js"></script>
-        <script src="js/bootstrap-carousel.js"></script>
-        <script src="js/bootstrap-typeahead.js"></script>
     </body>
 </html>
